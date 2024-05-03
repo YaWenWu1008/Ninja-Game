@@ -1,10 +1,10 @@
 // 任務類別
-class MissionSystem{
-    constructor(){
+class MissionSystem {
+    constructor() {
         this.luckyScore = {
             found: 10,
             convoy: 20,
-            collect: 30
+            collect: 30,
         }
     }
 

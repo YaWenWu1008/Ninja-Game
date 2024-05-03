@@ -1,12 +1,12 @@
 // 訓練系統(體術、手裏劍、忍術)
 // 體術 : bodyMagic、手裏劍 Shuriken、忍術 magic
 class TrainSystem {
-    constructor () {
+    constructor() {
         // 制定分數
         this.abilityScore = {
             bodyMagic: 15,
             Shuriken: 10,
-            magic: 20
+            magic: 20,
         }
     }
 
@@ -23,5 +23,3 @@ class TrainSystem {
         player.ability += this.abilityScore.magic
     }
 }
-
-
