@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忍者之路</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/67aac681c6.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+</head>
+<style>
+    body {
+        width: 768px;
+        height: 1024px;
+        color: #fff;
+    }
+
+    #teacher {
+        height: 60%;
+    }
+
+    .scoreBtn:hover {
+        filter: brightness(80%);
+    }
+
+    .active {
+        border: 5px solid #ffffff;
+    }
+    .challengeBossBtn:disabled {
+        filter: brightness(50%);
+    }
+
+    #game-container {
+        background-color: #00000034;
+    }
+    .line {
+        position: absolute;
+        top: 0;
+        width: 1px;
+        height: 100%;
+    }
+
+    .cat {
+        width: 8%;
+        position: absolute;
+        top: -20px;
+    }
+
+    .cat:hover {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="container h-screen w-full">
+        <div class="bg-[#333] w-full h-full">
+            <!-- header -->
+            <div class="header h-[80px] bg-[#6565] w-full flex items-center p-3 justify-between">
+                <div class="title text-3xl font-bold">忍者之路</div>
+                <div class="info flex justify-around gap-3 font-bold text-xl ">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-droplet text-red-800 mr-1"></i>
+                        <div class="hp">血量</div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-dragon text-amber-800 mr-1"></i>
+                        <div class="ability">能力值</div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa-brands fa-web-awesome text-yellow-300 mr-1"></i>
+                        <div class="badge">徽章</div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-heart text-pink-500 mr-1"></i>
+                        <div class="lucky">幸運值</div>
+                    </div>
+                    <div class="userName"></div>
+                </div>
+            </div>
+            <!-- menu -->
+            <div class="menu text-center p-3 text-2xl hidden">
+                <button class="p-2 bg-[#78a471] rounded-md scoreBtn"><a href="#">修練中心</a></button>
+                <button class="p-2 bg-[#78a471] rounded-md my-3 missionBtn"><a href="#">任務部</a></button>
+                <button class="p-2 bg-[#78a471] rounded-md challengeBtn"><a href="#">挑戰大蛇丸</a></button>
+            </div>
+            <button class="fixed top-[100px] left-[10px] p-6 rounded-full bg-[#f2f2] backBtn z-50 hidden">
+                <i class="fa-solid fa-arrow-left top-0 left-0"></i>
+            </button>
+            <img id="teacher" class="hidden m-auto" src="./imgae/hateri.png" alt="">
+
+            <!-- main -->
+            <div class="flex justify-center items-center w-[768px] h-[848px] relative main"> 
+                <button
+                    class="text-3xl font-bold inline-flex items-center rounded-md px-3 py-2 ring-1 ring-inset ring-teal-700/10 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 focus:outline-none focus:ring focus:ring-teal-300"
+                    id="startBtn">start</button>
+                <!-- 訓練系統 -->
+                <div class="trainArea w-full h-full p-3 flex flex-col text-center hidden">
+                    <div class="text-6xl">修練中心</div>
+                    <div class="text-center p-3 text-2xl">
+                        <button class="p-2 bg-[#78a471] rounded-md trainBtn bodyMagicTrainBtn">體術訓練</button>
+                        <button class="p-2 bg-[#78a471] rounded-md my-3 trainBtn ShurikenTrainBtn">手裏劍訓練</button>
+                        <button class="p-2 bg-[#78a471] rounded-md trainBtn magicBtn">忍術訓練</button>
+                    </div>
+                    <!-- 封面 -->
+                    <div class="w-full" id="coverImg">
+                        <img class="w-full" src="./imgae/coverImg.gif" alt="">
+                    </div>
+                    <!-- 體術 -->
+                    <div class="hidden" id="bodyMagicImg">
+                        <img src="./imgae/bodyMagic.gif" class="w-full" alt="">
+                        <button
+                            class="mt-2 m-auto w-[130px] bg-[#832352] text-2xl px-2 py-3 font-bold rounded-md bodyMagicTrainActive">點我訓練</button>
+                    </div>
+
+                    <!-- 手裏劍 -->
+                    <div class="hidden" id="ShurikenImg">
+                        <img src="./imgae/hattori-hattori-kun.gif" class="w-full" alt="">
+                        <button
+                            class="mt-2 m-auto w-[130px] bg-[#832352] text-2xl px-2 py-3 font-bold rounded-md ShurikenTrainActive">點我訓練</button>
+                    </div>
+                    <!-- 忍術 -->
+                    <div class="hidden" id="MagicImg">
+                        <img src="./imgae/kakashi.gif" class="w-full" alt="">
+                        <button
+                            class="mt-2 m-auto w-[130px] bg-[#832352] text-2xl px-2 py-3 font-bold rounded-md MagicTrainActive">點我訓練</button>
+                    </div>
+                </div>
+                <!-- 任務系統 -->
+                <div class="missionArea w-full h-full p-3 flex flex-col text-center hidden">
+                    <div class="text-6xl">任務部</div>
+                    <div class="text-center p-3 text-2xl">
+                        <button class="p-2 bg-[#78a471] rounded-md foundBtn">找遺失物</button>
+                        <button class="p-2 bg-[#78a471] rounded-md my-3 convoyBtn">護送任務</button>
+                        <button class="p-2 bg-[#78a471] rounded-md collectBtn">情報蒐集</button>
+                    </div>
+                    <!-- 封面 -->
+                    <div class="w-full" id="coverImg">
+                        <img class="w-full" src="./imgae/mission.gif" alt="">
+                    </div> 
+                </div>
+                <div class="hidden missionFoundArea flex flex-col justify-center items-center h-full w-full">
+                    <div class="score">
+                        <p>分數: <span id="text-score">0</span></p>
+                        <p>剩餘: <span id="text-time">0</span>秒</p>
+                    </div> 
+                    <button class="p-2 bg-[#78a471] rounded-md" id="startGameBtn">開始尋找</button>
+                    <div id="game-container" class="h-full w-full">
+                        <div class="line" style="left: 23%;"></div>
+                        <div class="line" style="left: 50%;"></div>
+                        <div class="line" style="left: 77%;"></div>
+                    </div>
+                </div>
+                <!-- 挑戰系統 -->
+                <div class="challengeArea w-full h-full p-3 flex flex-col text-center hidden gap-4">
+                    <div class="text-6xl">挑戰大蛇丸</div>
+                    <img src="./imgae/snake.jpeg" class="mt-4" alt="">
+                    <h3>大蛇丸の進化</h3>
+                    <div class="levelArea flex justify-center items-center gap-3" id="levelArea">
+                        <!-- <div class="text-center p-3 text-2xl flex justify-center items-center h-full">
+                            <button class="p-2 bg-[#78a471] rounded-md challengeBossBtn" data-ability="450">
+                                <i class="fa-solid fa-worm text-amber-800 fa-2x"></i></button>
+                        </div>
+                        <div class="text-center p-3 text-2xl flex justify-center items-center h-full">
+                            <button class="p-2 bg-[#78a471] rounded-md challengeBossBtn" data-ability="700">
+                                <i class="fa-solid fa-worm text-amber-800 fa-3x"></i></button>
+                        </div>
+                        <div class="text-center p-3 text-2xl flex justify-center items-center h-full" >
+                            <button class="p-2 bg-[#78a471] rounded-md challengeBossBtn" data-ability="1000">
+                                <i class="fa-solid fa-worm text-amber-800 fa-4x"></i></button>
+                        </div>  -->
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 引用 js -->
+    <script src="./class/UIController.js"></script>
+    <script src="./class/Character.js"></script>
+    <script src="./class/Button.js"></script>
+    <script src="./class/MissionSystem.js"></script>
+    <script src="./class/MissionClick.js"></script>
+    <script src="./class/TrainSystem.js"></script>
+    <script src="./class/TrainClick.js"></script>
+    <script src="./class/Boss.js"></script>
+    <script src="./class/Level.js"></script>
+    <script src="./class/Game.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
