@@ -4,7 +4,7 @@ const player = new Character(1000, 0, 0,0)
 const startButton = new Button('startBtn', 'teacher', player);
 
 // 建立挑戰按鈕(父元素,數量,初始值,進化值)
-const challegeBtn = new ChallengeBtn('levelArea',10,400,100)
+const challegeBtn = new ChallengeBtn('levelArea',10,500,100)
 challegeBtn.showButton()
 // 修練
 const trainSystem = new TrainSystem()
